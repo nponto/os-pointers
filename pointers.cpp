@@ -109,24 +109,24 @@ double promptDouble(std::string message, double min, double max)
         int temp = 0; // going to use this to check user response for non-digits
         std::cout << message;
         std::cin >> tempstring;
-        int decimals = 0;
+        int decimals = 0; // number of decimals in the user input (more than 1 is not a number)
         for(int i = 0; i < tempstring.length(); i++)
         {
-        if (isdigit(tempstring[i]) || tempstring[i] == '.') // this built-in checks if the response contains a digit
+            if (isdigit(tempstring[i]) || tempstring[i] == '.') // this built-in checks if the response contains a digit
             {
-                decimals++;
+                if (tempstring[i] == '.')
+                {
+                    decimals++;
+                }
                 temp++;
             }
         }
-        if (temp == tempstring.length()) // if # of digits matches length of string then good to go
+        if (temp == tempstring.length() && decimals < 2) // if # of digits matches length of string then good to go
         {
-            if (decimals = 1 || decimals == 0) // if it is a valid double (0.0 or 0)
-            {
-                userdouble = stod(tempstring);
-                if (userdouble >= min && userdouble <= max)
-                {   
-                    break;
-                }
+            userdouble = stod(tempstring);
+            if (userdouble >= min && userdouble <= max)
+            {   
+                break;
             }
         }
         std::cout << "Sorry, I cannot understand your answer" << "\n";
